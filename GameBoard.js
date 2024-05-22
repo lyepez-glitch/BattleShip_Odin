@@ -1,5 +1,5 @@
 import { Ship } from './Ship.js';
-
+import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
 export class GameBoard {
     constructor() {
         this.board = []
@@ -19,7 +19,11 @@ export class GameBoard {
         return this.board;
     }
     place(ship, row, column) {
-        this.board[row][column] = ship;
+
+        //this.board[row][column] = ship;
+        for (let i = 0; i < ship.children.length; i++) {
+            this.board[row][column + i] = ship;
+        }
     }
     isPlaced(randomIndex, randomCol) {
         this.placed.forEach((obj) => {
@@ -94,7 +98,25 @@ export class GameBoard {
             if (randomIndex === rowIndex) {
                 row.forEach((col, colIndex) => {
                     if (randomCol === colIndex) {
-                        this.board[rowIndex][colIndex] = ship;
+                        // this.board[rowIndex][colIndex] = ship;
+                        for (let i = 0; i < ship.children.length; i++) {
+                            const child = ship.children[i];
+                            if (this.isPlaced(rowIndex, colIndex + i)) {
+                                randomIndex = Math.floor(Math.random() * 10);
+                                randomCol = Math.floor(Math.random() * 10);
+                                while (this.isPlaced(randomIndex, randomCol)) {
+                                    randomIndex = Math.floor(Math.random() * 10);
+                                    randomCol = Math.floor(Math.random() * 10);
+                                    this.board[randomIndex][randomCol] = child;
+                                    this.placed.push({ "row": randomIndex, "col": randomCol })
+                                }
+                            } else {
+                                this.board[rowIndex][colIndex + i] = child;
+                                this.placed.push({ "row": rowIndex, "col": colIndex })
+                            }
+
+
+                        }
 
                     }
                 })
@@ -102,7 +124,7 @@ export class GameBoard {
             }
 
         })
-        this.placed.push({ "row": randomIndex, "col": "colIndex" })
+
     }
     receiveAttack(row, column) {
 
@@ -132,15 +154,17 @@ export class GameBoard {
         console.log("computer piece being attacked by player 1", ship, "updated val", this.board[row][column])
         return this.board[row][column]
     }
-    allSunk() {
+    allSunk(items) {
 
         let count = 0;
-        this.board.forEach((row) => {
-            row.forEach((item) => {
 
-                if (item !== 0) {
-                    if (item instanceof Ship) {
-                        if (item.isShipSunk()) {
+
+        function countSunk(ships) {
+            ships.forEach((ship) => {
+
+                if (ship !== 0) {
+                    if (ship instanceof Ship) {
+                        if (ship.isShipSunk()) {
                             count++;
                         }
                     }
@@ -150,8 +174,10 @@ export class GameBoard {
                 //     count++;
                 // }
             })
+        }
+        countSunk(items);
 
-        })
+
         if (count < 5) {
             return false;
         } else {

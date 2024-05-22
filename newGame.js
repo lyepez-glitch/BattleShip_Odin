@@ -12,11 +12,25 @@ import { GameBoard } from './GameBoard.js';
 function newGame(player1, player2, count) {
     player1 = new Player('Real', new GameBoard());
     player2 = new Player('Computer', new GameBoard());
+
+    count = 0;
+    carrier1 = new Ship(5, 'carrier');
+    battleship1 = new Ship(4, 'battleship');
+    destroyer1 = new Ship(3, 'destroyer');
+    submarine1 = new Ship(3, 'submarine');
+    patrol1 = new Ship(2, 'patrol');
+
+    carrier2 = new Ship(5, 'carrier');
+    battleship2 = new Ship(4, 'battleship');
+    destroyer2 = new Ship(3, 'destroyer');
+    submarine2 = new Ship(3, 'submarine');
+    patrol2 = new Ship(2, 'patrol');
     const mainCont = document.querySelector('#mainContainer');
     mainCont.innerHTML = "";
 
     render(player1, 'player1', count);
     render(player2, 'player2', count);
+    displayShips();
 
     const player1Board = document.querySelector('#player1');
     const player2Board = document.querySelector('#player2');

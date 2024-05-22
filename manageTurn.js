@@ -1,6 +1,8 @@
 import { Ship } from './ship.js';
 import { render } from './render.js';
 
+import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
+
 async function manageTurn(piece, player1, player2, count) {
     function delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -41,12 +43,16 @@ async function manageTurn(piece, player1, player2, count) {
 
 
 
-    const updatedVal2 = player2.board.receiveAttack(row, col)
-        // console.log("player 2 item berfore render", updatedVal2)
+    const player2Ship = player2.board.receiveAttack(row, col)
+    if (player2Ship.isShipSunk()) {
+        score.textContent = "You sunk my battleship!";
+    }
+    // console.log("player 2 item berfore render", updatedVal2)
     console.log("player2.board before render", player2.board.board)
     mainCont.innerHTML = "";
     render(player1, 'player1', count);
     render(player2, 'player2', count);
+    displayShips();
 
 
 
@@ -115,8 +121,19 @@ async function manageTurn(piece, player1, player2, count) {
     //     player2Board.classList.add('active');
     //     player1Board.classList.remove('active');
 
-    player1._board.randomReceiveAttack()
+    const player1Ship1 = player1._board.randomReceiveAttack()
+    const player1Ship2 = player1._board.randomReceiveAttack()
+    const player1Ship3 = player1._board.randomReceiveAttack()
+    if (player1Ship1.isShipSunk()) {
+        score.textContent = "You sunk my battleship!";
+    }
+    if (player1Ship2.isShipSunk()) {
+        score.textContent = "You sunk my battleship!";
+    }
 
+    if (player1Ship3.isShipSunk()) {
+        score.textContent = "You sunk my battleship!";
+    }
 
     //     player1Board.classList.add('active');
     //     player2Board.classList.remove('active');
@@ -128,6 +145,7 @@ async function manageTurn(piece, player1, player2, count) {
     mainCont.innerHTML = "";
     render(player1, 'player1', count);
     render(player2, 'player2', count);
+    displayShips();
     // const coord = '#' + row + '-' + col;
     // const domeEle = document.querySelector(coord)
 

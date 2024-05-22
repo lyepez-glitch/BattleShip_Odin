@@ -1,22 +1,22 @@
 import { Ship } from './Ship.js';
 import { manageTurn } from './manageTurn.js';
 import { placeShip } from './placeShip.js';
-import { player1, player2 } from './app.js';
+import { player1, player2, carrier, battleship, destroyer, submarine, patrol } from './app.js';
 
 
-function render(player, id, count) {
+function render(player, id, count, ships) {
 
     const ele = document.createElement('div');
     const mainCont = document.querySelector('#mainContainer');
 
     const outerDiv = document.createElement('div');
     const score = document.createElement('div');
-    if (player._board.allSunk() && id === 'player1') {
+    if (player._board.allSunk(ships) && id === 'player1') {
         score.textContent = "player2 wins!";
 
 
 
-    } else if (player._board.allSunk() && id === 'player2') {
+    } else if (player._board.allSunk(ships) && id === 'player2') {
 
         score.textContent = "player1 wins!";
 
