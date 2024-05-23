@@ -15,7 +15,7 @@ class Ship {
         return this.shipCount;
     }
     addChild(children) {
-        this.children.concat(ship);
+        this.children.concat(children);
     }
     children() {
         return this.children;

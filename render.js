@@ -1,7 +1,7 @@
 import { Ship } from './Ship.js';
 import { manageTurn } from './manageTurn.js';
 import { placeShip } from './placeShip.js';
-import { player1, player2, carrier, battleship, destroyer, submarine, patrol } from './app.js';
+import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
 
 
 function render(player, id, count, ships) {
@@ -27,6 +27,7 @@ function render(player, id, count, ships) {
     mainCont.appendChild(score);
     outerDiv.id = id;
     outerDiv.textContent = id;
+    console.log("player board", player.board.board)
 
     player.board.board.forEach((row, rowIndex) => {
         const rowEle = document.createElement('div');
