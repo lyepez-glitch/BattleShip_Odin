@@ -1,5 +1,5 @@
 import { Ship } from './Ship.js';
-import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
+// import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
 export class GameBoard {
     constructor() {
         this.board = []
@@ -98,8 +98,19 @@ export class GameBoard {
 
         for (let i = 0; i < ship.children.length; i++) {
             const child = ship.children[i];
+            let curr = this.board[randomIndex][parseInt(randomCol) + parseInt(i)];
 
-            this.board[randomIndex][parseInt(randomCol) + parseInt(i)] = child;
+            if (!curr.children) {
+                this.board[randomIndex][parseInt(randomCol) + parseInt(i)] = child;
+            } else {
+                while (curr.children) {
+                    randomIndex = Math.floor(Math.random() * 10);
+                    randomCol = Math.floor(Math.random() * 5);
+                    curr = this.board[randomIndex][randomCol];
+                }
+                this.board[randomIndex][randomCol] = child;
+            }
+
         }
         // this.board.forEach((row, rowIndex) => {
 
@@ -143,7 +154,7 @@ export class GameBoard {
         if (ship !== 0) {
 
             if (ship.children) {
-                console.log("receive attack method ship", ship)
+
                 if (!ship.isSunk) {
                     ship.hit();
                     this.successfulHits.push([row, column])
@@ -166,26 +177,29 @@ export class GameBoard {
 
         return this.board[row][column]
     }
-    allSunk(items) {
+    countSunk(ships, count) {
+        ships.forEach((ship) => {
+            console.log("each ship in countsunk func", ship)
+            if (ship !== 0) {
+                if (ship.children) {
+                    if (ship.isSunk) {
+                        count++;
+                    }
+                }
+
+            }
+
+        })
+        return count;
+    }
+    allSunk(items, id) {
 
         let count = 0;
 
+        console.log("allsunk params passed in", items, "id", id, "board", this.board)
 
-        function countSunk(ships) {
-            ships.forEach((ship) => {
-
-                if (ship !== 0) {
-                    if (ship instanceof Ship) {
-                        if (ship.isShipSunk()) {
-                            count++;
-                        }
-                    }
-
-                }
-
-            })
-        }
-        countSunk(items);
+        count = this.countSunk(items, count);
+        console.log("count result of countsunk", count)
 
 
         if (count < 5) {

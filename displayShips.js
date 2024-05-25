@@ -25,7 +25,7 @@ const displayShips = (carrier1, battleship1, destroyer1, submarine1, patrol1, ca
     // parentDiv1.style.backgroundColor = 'red';
     // parentDiv1.style.height = '100px';
     // parentDiv1.style.width = '100px';
-    console.log(28, ships1, ships2)
+
     ships1.forEach((ship) => {
 
 

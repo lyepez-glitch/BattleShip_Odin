@@ -1,11 +1,11 @@
 import { Ship } from './Ship.js';
 import { manageTurn } from './manageTurn.js';
 import { placeShip } from './placeShip.js';
-import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
+// import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
 
 let firstTimeLoad = true;
 
-function render(player, id, count, ships) {
+function render(player, id, count, ships, player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2) {
 
 
 
@@ -27,13 +27,14 @@ function render(player, id, count, ships) {
     // })
     const outerDiv = document.createElement('div');
     const score = document.createElement('div');
-    console.log(30, player._board)
-    if (player._board.allSunk(ships) && id === 'player1') {
+
+    if (player._board.allSunk(ships, id) && id === 'player1') {
+
         score.textContent = "player2 wins!";
 
 
 
-    } else if (player._board.allSunk(ships) && id === 'player2') {
+    } else if (player._board.allSunk(ships, id) && id === 'player2') {
 
         score.textContent = "player1 wins!";
 
@@ -54,7 +55,7 @@ function render(player, id, count, ships) {
                 count++;
             }
         }
-        if (count === ship.children.length) {
+        if (count === ship.children.length && (ship.children.length > 0)) {
             shipCount++;
             if (!ship.message) {
                 score.textContent = id + ": You sunk my battleship!";
@@ -66,14 +67,14 @@ function render(player, id, count, ships) {
         }
     })
 
-    if (shipCount >= 5) {
-        if (id === 'player1') {
-            score.textContent = "player2 wins!";
-        } else {
-            score.textContent = "player 1 wins!";
-        }
+    // if (shipCount >= 5) {
+    //     if (id === 'player1') {
+    //         score.textContent = "player2 wins!";
+    //     } else {
+    //         score.textContent = "player 1 wins!";
+    //     }
 
-    }
+    // }
 
 
     // })
@@ -93,7 +94,7 @@ function render(player, id, count, ships) {
 
 
             if (item.children) { // if item is ship
-                console.log("item", item, item.isSunk)
+
 
                 if (item.isSunk) { //if sunk
 
@@ -123,12 +124,12 @@ function render(player, id, count, ships) {
             itemEle.classList.add(id);
             if (count < 5) {
                 if (id !== 'player2') {
-                    itemEle.addEventListener('click', function() { placeShip(itemEle, player1, player2, count) });
+                    itemEle.addEventListener('click', function() { placeShip(itemEle, player1, player2, count, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2) });
                 }
 
             } else {
                 if (id !== 'player1') {
-                    itemEle.addEventListener('click', function() { manageTurn(itemEle, player1, player2, count) });
+                    itemEle.addEventListener('click', function() { manageTurn(itemEle, player1, player2, count, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2) });
                 }
             }
             rowEle.appendChild(itemEle)

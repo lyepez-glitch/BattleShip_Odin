@@ -1,9 +1,9 @@
 import { Ship } from './ship.js';
 import { render } from './render.js';
 import { displayShips } from './displayShips.js';
-import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
+// import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
 
-async function manageTurn(piece, player1, player2, count) {
+async function manageTurn(piece, player1, player2, count, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2) {
     function delay(ms) {
 
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -58,17 +58,17 @@ async function manageTurn(piece, player1, player2, count) {
 
 
     const player2Ship = player2.board.receiveAttack(row, col)
-    if (player2Ship.isSunk) {
-        score.textContent = "You sunk my battleship!";
-    }
+        // if (player2Ship.isSunk) {
+        //     score.textContent = "You sunk my battleship!";
+        // }
 
     const ships1 = [carrier1, battleship1, destroyer1, submarine1, patrol1]
     const ships2 = [carrier2, battleship2, destroyer2, submarine2, patrol2]
 
     mainCont.innerHTML = "";
 
-    render(player1, 'player1', count, [carrier1, battleship1, destroyer1, submarine1, patrol1]);
-    render(player2, 'player2', count, [carrier2, battleship2, destroyer2, submarine2, patrol2]);
+    render(player1, 'player1', count, [carrier1, battleship1, destroyer1, submarine1, patrol1], player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2);
+    render(player2, 'player2', count, [carrier2, battleship2, destroyer2, submarine2, patrol2], player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2);
 
 
     carrier1Ele.innerHTML = "";
@@ -156,12 +156,30 @@ async function manageTurn(piece, player1, player2, count) {
     const player1Ship3 = player1._board.randomReceiveAttack()
     const player1Ship4 = player1._board.randomReceiveAttack()
     const player1Ship5 = player1._board.randomReceiveAttack()
-        // if (player1Ship1.isSunk) {
-        //     score.textContent = "You sunk my battleship!";
-        // }
-        // if (player1Ship2.isSunk) {
-        //     score.textContent = "You sunk my battleship!";
-        // }
+
+    let allShips = [carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2]
+
+    allShips.forEach((ship) => {
+        console.log('type', ship.getId(), "children", ship.children)
+        let childCount = 0;
+        ship.children.forEach((child) => {
+            if ((child.isSunk)) {
+                childCount++;
+            }
+        })
+        if (childCount === ship.children.length) {
+            ship.isSunk = true;
+        }
+
+    })
+
+    //
+    // if (player1Ship1.isSunk) {
+    //     score.textContent = "You sunk my battleship!";
+    // }
+    // if (player1Ship2.isSunk) {
+    //     score.textContent = "You sunk my battleship!";
+    // }
 
     // if (player1Ship3.isSunk) {
     //     score.textContent = "You sunk my battleship!";
@@ -197,10 +215,9 @@ async function manageTurn(piece, player1, player2, count) {
     // }, 3000)
 
     mainCont.innerHTML = "";
-    console.log('player1brd befroe render', player1.board.board)
-    console.log('player2brd befroe render', player2.board.board)
-    render(player1, 'player1', count, [carrier1, battleship1, destroyer1, submarine1, patrol1]);
-    render(player2, 'player2', count, [carrier2, battleship2, destroyer2, submarine2, patrol2]);
+
+    render(player1, 'player1', count, [carrier1, battleship1, destroyer1, submarine1, patrol1], player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2);
+    render(player2, 'player2', count, [carrier2, battleship2, destroyer2, submarine2, patrol2], player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2);
     carrier1Ele.innerHTML = "";
     battleship1Ele.innerHTML = "";
     destroyer1Ele.innerHTML = "";

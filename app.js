@@ -113,4 +113,4 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 });
 
-export { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 }
+// export { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 }

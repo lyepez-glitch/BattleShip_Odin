@@ -6,14 +6,14 @@ import { Player } from './player.js';
 import { manageTurn } from './manageTurn.js';
 import { Ship } from './ship.js';
 import { GameBoard } from './GameBoard.js';
-import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
+// import { player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2 } from './app.js';
 import { displayShips } from './displayShips.js';
-let count = 0;
+// let count = 0;
 
 function newGame(player1, player2, count, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2) {
     player1 = new Player('Real', new GameBoard());
     player2 = new Player('Computer', new GameBoard());
-    console.log(16, player1.board, player2.board)
+
 
     count = 0;
     carrier1 = new Ship(5, 'carrier');
@@ -27,6 +27,37 @@ function newGame(player1, player2, count, carrier1, battleship1, destroyer1, sub
     destroyer2 = new Ship(3, 'destroyer');
     submarine2 = new Ship(3, 'submarine');
     patrol2 = new Ship(2, 'patrol');
+
+    carrier1.addChild(
+        [new Ship(1, 'carrier1'),
+            new Ship(1, 'carrier1'),
+            new Ship(1, 'carrier1'),
+            new Ship(1, 'carrier1'),
+            new Ship(1, 'carrier1')
+        ]
+    );
+
+
+    battleship1.addChild([new Ship(1, 'battleship1'), new Ship(1, 'battleship1'), new Ship(1, 'battleship1'), new Ship(1, 'battleship1')]);
+
+    destroyer1.addChild([new Ship(1, 'destroyer1'), new Ship(1, 'destroyer1'), new Ship(1, 'destroyer1')]);
+
+    submarine1.addChild([new Ship(1, 'sub1'), new Ship(1, 'sub1'), new Ship(1, 'sub1')]);
+
+    patrol1.addChild([new Ship(1, 'patrol1'), new Ship(1, 'patrol1')]);
+
+
+
+    carrier2.addChild([new Ship(1, 'carrier2'), new Ship(1, 'carrier2'), new Ship(1, 'carrier2'), new Ship(1, 'carrier2'), new Ship(1, 'carrier2')]);
+
+
+    battleship2.addChild([new Ship(1, 'battleship2'), new Ship(1, 'battleship2'), new Ship(1, 'battleship2'), new Ship(1, 'battleship2')]);
+
+    destroyer2.addChild([new Ship(1, 'destroyer2'), new Ship(1, 'destroyer2'), new Ship(1, 'destroyer2')]);
+
+    submarine2.addChild([new Ship(1, 'sub2'), new Ship(1, 'sub2'), new Ship(1, 'sub2')]);
+
+    patrol2.addChild([new Ship(1, 'patrol2'), new Ship(1, 'patrol2')]);
     const mainCont = document.querySelector('#mainContainer');
 
     const chart1 = document.querySelector('#chart1');
@@ -54,8 +85,8 @@ function newGame(player1, player2, count, carrier1, battleship1, destroyer1, sub
     patrol2Ele.innerHTML = "";
     sub2Ele.innerHTML = "";
 
-    render(player1, 'player1', count, [carrier1, battleship1, destroyer1, submarine1, patrol1]);
-    render(player2, 'player2', count, [carrier2, battleship2, destroyer2, submarine2, patrol2]);
+    render(player1, 'player1', count, [carrier1, battleship1, destroyer1, submarine1, patrol1], player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2);
+    render(player2, 'player2', count, [carrier2, battleship2, destroyer2, submarine2, patrol2], player1, player2, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2);
     displayShips(carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2);
 
     const player1Board = document.querySelector('#player1');
@@ -68,7 +99,7 @@ function newGame(player1, player2, count, carrier1, battleship1, destroyer1, sub
         const pieces2 = ele2.querySelectorAll('.player2');
 
         pieces1.forEach((piece) => {
-            piece.addEventListener('click', function() { placeShip(piece, player1, player2, count) });
+            piece.addEventListener('click', function() { placeShip(piece, player1, player2, count, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2) });
         });
         count = 0;
 
@@ -76,7 +107,7 @@ function newGame(player1, player2, count, carrier1, battleship1, destroyer1, sub
 
 
             piece.addEventListener('click', function() {
-                manageTurn(piece, player1, player2, count)
+                manageTurn(piece, player1, player2, count, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2)
             });
 
         });
