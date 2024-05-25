@@ -6,6 +6,7 @@ class Ship {
         this.children = [];
         this.id = id;
         this.shipCount = 0;
+        this.message = false;
     }
     hit() {
         this.hits++;
@@ -15,7 +16,9 @@ class Ship {
         return this.shipCount;
     }
     addChild(children) {
-        this.children.concat(children);
+
+        this.children = this.children.concat(children);
+
     }
     children() {
         return this.children;
@@ -28,11 +31,12 @@ class Ship {
     isShipSunk() {
         let count = 0;
         this.children.forEach((ship) => {
-            if (ship.isShipSunk()) {
+            if (ship.isSunk) {
                 count++;
             }
         })
         if (count === this.children.length) {
+            this.isSunk = true;
             return true;
         } else {
             return false;

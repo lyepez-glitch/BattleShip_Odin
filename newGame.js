@@ -11,27 +11,52 @@ import { displayShips } from './displayShips.js';
 let count = 0;
 
 function newGame(player1, player2, count, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2) {
-    // player1 = new Player('Real', new GameBoard());
-    // player2 = new Player('Computer', new GameBoard());
+    player1 = new Player('Real', new GameBoard());
+    player2 = new Player('Computer', new GameBoard());
+    console.log(16, player1.board, player2.board)
 
-    // count = 0;
-    // carrier1 = new Ship(5, 'carrier');
-    // battleship1 = new Ship(4, 'battleship');
-    // destroyer1 = new Ship(3, 'destroyer');
-    // submarine1 = new Ship(3, 'submarine');
-    // patrol1 = new Ship(2, 'patrol');
+    count = 0;
+    carrier1 = new Ship(5, 'carrier');
+    battleship1 = new Ship(4, 'battleship');
+    destroyer1 = new Ship(3, 'destroyer');
+    submarine1 = new Ship(3, 'submarine');
+    patrol1 = new Ship(2, 'patrol');
 
-    // carrier2 = new Ship(5, 'carrier');
-    // battleship2 = new Ship(4, 'battleship');
-    // destroyer2 = new Ship(3, 'destroyer');
-    // submarine2 = new Ship(3, 'submarine');
-    // patrol2 = new Ship(2, 'patrol');
+    carrier2 = new Ship(5, 'carrier');
+    battleship2 = new Ship(4, 'battleship');
+    destroyer2 = new Ship(3, 'destroyer');
+    submarine2 = new Ship(3, 'submarine');
+    patrol2 = new Ship(2, 'patrol');
     const mainCont = document.querySelector('#mainContainer');
+
+    const chart1 = document.querySelector('#chart1');
+    const chart2 = document.querySelector('#chart2');
+    const carrier1Ele = chart1.querySelector('#carrier')
+    const battleship1Ele = chart1.querySelector('#battleship');
+    const destroyer1Ele = chart1.querySelector('#destroyer');
+    const sub1Ele = chart1.querySelector('#submarine');
+    const patrol1Ele = chart1.querySelector('#patrol');
+
+    const carrier2Ele = chart2.querySelector('#carrier')
+    const battleship2Ele = chart2.querySelector('#battleship');
+    const destroyer2Ele = chart2.querySelector('#destroyer');
+    const sub2Ele = chart2.querySelector('#submarine');
+    const patrol2Ele = chart2.querySelector('#patrol');
     mainCont.innerHTML = "";
+    carrier1Ele.innerHTML = "";
+    battleship1Ele.innerHTML = "";
+    destroyer1Ele.innerHTML = "";
+    patrol1Ele.innerHTML = "";
+    sub1Ele.innerHTML = "";
+    carrier2Ele.innerHTML = "";
+    battleship2Ele.innerHTML = "";
+    destroyer2Ele.innerHTML = "";
+    patrol2Ele.innerHTML = "";
+    sub2Ele.innerHTML = "";
 
     render(player1, 'player1', count, [carrier1, battleship1, destroyer1, submarine1, patrol1]);
     render(player2, 'player2', count, [carrier2, battleship2, destroyer2, submarine2, patrol2]);
-    displayShips();
+    displayShips(carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2);
 
     const player1Board = document.querySelector('#player1');
     const player2Board = document.querySelector('#player2');

@@ -4,6 +4,24 @@ import { newGame } from './newGame.js';
 import { GameBoard } from './GameBoard.js';
 import { Ship } from './ship.js';
 
+const player1Chart = document.createElement('div');
+const player2Chart = document.createElement('div');
+
+const chartCont = document.createElement('chartCont');
+const chart1 = document.createElement('div')
+chart1.id = 'chart1';
+const chart2 = document.createElement('div');
+chart2.id = 'chart2';
+const playerName1 = document.createElement('div');
+const playerName2 = document.createElement('div');
+playerName1.textContent = 'player1';
+playerName2.textContent = 'player2';
+chart1.appendChild(playerName1);
+chart2.appendChild(playerName2);
+chartCont.appendChild(chart1);
+chartCont.appendChild(chart2);
+chartCont.id = 'chartCont';
+document.body.appendChild(chartCont);
 
 let player1 = new Player('Real', new GameBoard());
 let player2 = new Player('Computer', new GameBoard());
@@ -68,6 +86,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const newGameBtn = document.querySelector('#newGame');
     newGameBtn.addEventListener('click', function() { newGame(player1, player2, count, carrier1, battleship1, destroyer1, submarine1, patrol1, carrier2, battleship2, destroyer2, submarine2, patrol2) });
+
+    const chart1 = document.querySelector('#chart1');
+    const chart2 = document.querySelector('#chart2');
+
+    const ships1 = [carrier1, battleship1, destroyer1, submarine1, patrol1]
+    const ships2 = [carrier2, battleship2, destroyer2, submarine2, patrol2]
+    ships2.forEach((ship) => {
+        const ele = document.createElement('div');
+        ele.id = ship.getId();
+        const text = document.createElement('div');
+        text.textContent = ship.getId();
+        ele.appendChild(text);
+        chart2.appendChild(ele)
+
+    })
+    ships2.forEach((ship) => {
+        const ele = document.createElement('div');
+        ele.id = ship.getId();
+        const text = document.createElement('div');
+        text.textContent = ship.getId();
+        ele.appendChild(text);
+        chart1.appendChild(ele)
+
+    })
 
 });
 
