@@ -23,6 +23,7 @@ export class GameBoard {
         //this.board[row][column] = ship;
 
         for (let i = 0; i < ship.children.length; i++) {
+            console.log('row', row, 'parseInt(column) + parseInt(i)', parseInt(column) + parseInt(i))
 
             this.board[row][parseInt(column) + parseInt(i)] = ship.children[i];
         }
